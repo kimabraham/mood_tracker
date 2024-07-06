@@ -59,15 +59,17 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             children: [
               NavTab(
                 title: 'home',
+                isSelected: _selectedIndex == 0,
                 icon: FontAwesomeIcons.house,
                 onTap: () => _onTap(0),
-                selectedIndex: 0,
+                selectedIndex: _selectedIndex,
               ),
               NavTab(
                 title: 'profile',
+                isSelected: _selectedIndex == 2,
                 icon: FontAwesomeIcons.solidUser,
                 onTap: () => _onTap(2),
-                selectedIndex: 1,
+                selectedIndex: _selectedIndex,
               ),
             ],
           ),
