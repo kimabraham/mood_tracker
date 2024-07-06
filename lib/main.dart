@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mood_tracker/common/main_navigation/main_navigation_screen.dart';
 
 void main() {
   runApp(
@@ -15,12 +16,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Mood tracker',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
+        ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+        ),
+        scaffoldBackgroundColor: Colors.white,
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: Colors.white,
+          surfaceTintColor: Colors.white,
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          splashColor: Colors.transparent,
+        ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Mood tracker'),
+      home: const MainNavigationScreen(),
     );
   }
 }
@@ -40,6 +56,9 @@ class MyHomePage extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           padding: const EdgeInsets.all(20),
+          children: const [
+            Text('hello'),
+          ],
         ),
       ),
     );
