@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "888885396697",
+    "project_id": "mood-tracker-abraham",
+    "storage_bucket": "mood-tracker-abraham.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888885396697:android:4c9ec52b8f32553f63aac8",
+        "android_client_info": {
+          "package_name": "com.example.mood_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr9FhZn0dTBJDwvJySiB6ycS4IUNbv0OE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
