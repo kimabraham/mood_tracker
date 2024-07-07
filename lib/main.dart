@@ -30,6 +30,7 @@ class MyApp extends ConsumerWidget {
         colorScheme: const ColorScheme.light(
           primary: Color(0xff3D5BA9),
           secondary: Color(0xff79B1F1),
+          onSurface: Color.fromARGB(255, 34, 51, 93),
           inversePrimary: Color(0xff2454A9),
         ),
         textButtonTheme: const TextButtonThemeData(

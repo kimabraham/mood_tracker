@@ -6,12 +6,14 @@ class LoginTextField extends StatelessWidget {
   final String hintText;
   final IconData prefixIcon;
   final bool isObscure;
+  final FocusNode focusNode;
 
   const LoginTextField({
     super.key,
     required this.hintText,
     required this.prefixIcon,
     required this.isObscure,
+    required this.focusNode,
   });
 
   @override
@@ -26,9 +28,13 @@ class LoginTextField extends StatelessWidget {
         ),
       ]),
       child: TextFormField(
+        focusNode: focusNode,
         obscureText: isObscure,
         decoration: InputDecoration(
           hintText: hintText,
+          hintStyle: TextStyle(
+            color: Theme.of(context).colorScheme.inversePrimary,
+          ),
           filled: true,
           fillColor: Colors.white,
           prefixIcon: Padding(
