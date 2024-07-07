@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PostsListScreen extends StatelessWidget {
+  static const String routeUrl = '/home';
+  static const String routeName = 'home';
+
   const PostsListScreen({super.key});
 
   @override

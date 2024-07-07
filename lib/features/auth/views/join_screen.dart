@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mood_tracker/constants/gaps.dart';
 import 'package:mood_tracker/constants/sizes.dart';
+import 'package:mood_tracker/features/auth/view_models/join_vm.dart';
 import 'package:mood_tracker/features/auth/views/login_screen.dart';
 import 'package:mood_tracker/features/auth/views/widgets/auth_bottom_section.dart';
 import 'package:mood_tracker/features/auth/views/widgets/login_text_field.dart';
 
-class JoinScreen extends StatefulWidget {
+class JoinScreen extends ConsumerStatefulWidget {
   static const String routeUrl = '/join';
   static const String routeName = 'join';
   const JoinScreen({super.key});
 
   @override
-  State<JoinScreen> createState() => _JoinScreenState();
+  ConsumerState<JoinScreen> createState() => _JoinScreenState();
 }
 
-class _JoinScreenState extends State<JoinScreen> {
+class _JoinScreenState extends ConsumerState<JoinScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ScrollController _scrollController = ScrollController();
   final FocusNode _emailFocusNode = FocusNode();
@@ -66,7 +68,31 @@ class _JoinScreenState extends State<JoinScreen> {
   }
 
   void _onJoin() {
-    print('join');
+    ref.read(joinProvider.notifier).join(context);
+  }
+
+  void _onSaveEmail(String? value) {
+    if (value != null) {
+      ref
+          .read(joinFormProvider.notifier)
+          .update((state) => {...state, 'email': value});
+    }
+  }
+
+  void _onSaveUsername(String? value) {
+    if (value != null) {
+      ref
+          .read(joinFormProvider.notifier)
+          .update((state) => {...state, 'name': value});
+    }
+  }
+
+  void _onSavePassword(String? value) {
+    if (value != null) {
+      ref
+          .read(joinFormProvider.notifier)
+          .update((state) => {...state, 'password': value});
+    }
   }
 
   @override
@@ -120,6 +146,7 @@ class _JoinScreenState extends State<JoinScreen> {
                                   prefixIcon: FontAwesomeIcons.solidEnvelope,
                                   focusNode: _emailFocusNode,
                                   keyboardType: TextInputType.emailAddress,
+                                  onSaved: _onSaveEmail,
                                 ),
                                 Gaps.v20,
                                 LoginTextField(
@@ -128,6 +155,7 @@ class _JoinScreenState extends State<JoinScreen> {
                                   prefixIcon: FontAwesomeIcons.solidUser,
                                   focusNode: _usernameFocusNode,
                                   keyboardType: TextInputType.text,
+                                  onSaved: _onSaveUsername,
                                 ),
                                 Gaps.v20,
                                 LoginTextField(
@@ -136,6 +164,7 @@ class _JoinScreenState extends State<JoinScreen> {
                                   prefixIcon: FontAwesomeIcons.lock,
                                   focusNode: _passwordFocusNode,
                                   keyboardType: TextInputType.text,
+                                  onSaved: _onSavePassword,
                                 ),
                                 Gaps.v20,
                                 LoginTextField(
@@ -144,6 +173,7 @@ class _JoinScreenState extends State<JoinScreen> {
                                   prefixIcon: FontAwesomeIcons.lock,
                                   focusNode: _confirmPasswordFocusNode,
                                   keyboardType: TextInputType.text,
+                                  onSaved: (newValue) => {print(newValue)},
                                 ),
                                 Gaps.v14,
                                 const Text(

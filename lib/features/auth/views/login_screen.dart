@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mood_tracker/constants/gaps.dart';
@@ -8,20 +9,21 @@ import 'package:mood_tracker/features/auth/views/widgets/auth_bottom_section.dar
 import 'package:mood_tracker/features/auth/views/widgets/login_main_image.dart';
 import 'package:mood_tracker/features/auth/views/widgets/login_text_field.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static const String routeUrl = '/';
   static const String routeName = 'login';
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ScrollController _scrollController = ScrollController();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
+  Map<String, String> formData = {};
 
   @override
   void initState() {
@@ -61,6 +63,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onForgotPasswordTap() {}
+
+  void _onSaveEmail(String? value) {
+    if (value != null) {
+      print('email: $value');
+    }
+  }
+
+  void _onSavePassword(String? value) {
+    print('Password: $value');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   prefixIcon: FontAwesomeIcons.solidEnvelope,
                                   focusNode: _emailFocusNode,
                                   keyboardType: TextInputType.emailAddress,
+                                  onSaved: _onSaveEmail,
                                 ),
                                 Gaps.v20,
                                 LoginTextField(
@@ -126,6 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   prefixIcon: FontAwesomeIcons.lock,
                                   focusNode: _passwordFocusNode,
                                   keyboardType: TextInputType.text,
+                                  onSaved: _onSavePassword,
                                 ),
                               ],
                             ),

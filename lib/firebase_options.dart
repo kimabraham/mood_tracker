@@ -71,4 +71,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'mood-tracker-abraham.appspot.com',
     iosBundleId: 'com.example.moodTracker',
   );
+
 }

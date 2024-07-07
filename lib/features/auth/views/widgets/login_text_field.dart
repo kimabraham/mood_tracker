@@ -8,6 +8,7 @@ class LoginTextField extends StatelessWidget {
   final bool isObscure;
   final FocusNode focusNode;
   final TextInputType keyboardType;
+  final Function(String?) onSaved;
 
   const LoginTextField({
     super.key,
@@ -16,6 +17,7 @@ class LoginTextField extends StatelessWidget {
     required this.isObscure,
     required this.focusNode,
     required this.keyboardType,
+    required this.onSaved,
   });
 
   @override
@@ -30,6 +32,8 @@ class LoginTextField extends StatelessWidget {
         ),
       ]),
       child: TextFormField(
+        onChanged: onSaved,
+        onSaved: onSaved,
         focusNode: focusNode,
         obscureText: isObscure,
         keyboardType: keyboardType,
