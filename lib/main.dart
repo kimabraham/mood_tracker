@@ -17,7 +17,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mood tracker',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xffF5F9FF),
+          surfaceTintColor: Color(0xffF5F9FF),
+        ),
+        scaffoldBackgroundColor: const Color(0xffF5F9FF),
+        colorScheme: const ColorScheme.light(
+          primary: Color(0xff3D5BA9),
+          secondary: Color(0xff79B1F1),
+          inversePrimary: Color(0xff2454A9),
+        ),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Mood tracker'),
