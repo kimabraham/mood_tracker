@@ -40,7 +40,7 @@ class LoginTextField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(
-            color: Theme.of(context).colorScheme.inversePrimary,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           filled: true,
           fillColor: Colors.white,
@@ -48,7 +48,7 @@ class LoginTextField extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: Sizes.size20,
               vertical: Sizes.size10,
-            ), // Adjust padding as needed
+            ),
             child: FaIcon(
               prefixIcon,
               color: Theme.of(context).colorScheme.primary,
