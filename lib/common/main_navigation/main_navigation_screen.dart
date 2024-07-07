@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mood_tracker/common/main_navigation/widgets/nav_tab.dart';
 import 'package:mood_tracker/constants/sizes.dart';
-import 'package:mood_tracker/features/posts/post_add_screen.dart';
-import 'package:mood_tracker/features/posts/posts_list_screen.dart';
-import 'package:mood_tracker/features/profile/profile_screen.dart';
+import 'package:mood_tracker/features/posts/views/post_add_screen.dart';
+import 'package:mood_tracker/features/posts/views/posts_list_screen.dart';
+import 'package:mood_tracker/features/profile/views/profile_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   static const String routeName = 'mainNavigation';
