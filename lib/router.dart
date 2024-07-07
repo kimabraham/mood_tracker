@@ -4,17 +4,19 @@ import 'package:mood_tracker/common/main_navigation/main_navigation_screen.dart'
 import 'package:mood_tracker/features/auth/repositories/auth_repo.dart';
 import 'package:mood_tracker/features/auth/views/join_screen.dart';
 import 'package:mood_tracker/features/auth/views/login_screen.dart';
+import 'package:mood_tracker/features/posts/views/posts_list_screen.dart';
 
 final routerProvider = Provider(
   (ref) {
     return GoRouter(
+      initialLocation: PostsListScreen.routeUrl,
       redirect: (context, state) {
         final isLoggedIn = ref.read(authRepoProvider).isLoggedIn;
 
         if (!isLoggedIn) {
           if (state.subloc != JoinScreen.routeUrl &&
               state.subloc != LoginScreen.routeUrl) {
-            return JoinScreen.routeUrl;
+            return LoginScreen.routeUrl;
           }
         }
 
