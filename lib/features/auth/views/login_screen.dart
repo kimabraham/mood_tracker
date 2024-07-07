@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mood_tracker/constants/gaps.dart';
 import 'package:mood_tracker/constants/sizes.dart';
+import 'package:mood_tracker/features/auth/view_models/login_vm.dart';
 import 'package:mood_tracker/features/auth/views/join_screen.dart';
 import 'package:mood_tracker/features/auth/views/widgets/auth_bottom_section.dart';
 import 'package:mood_tracker/features/auth/views/widgets/login_main_image.dart';
@@ -58,20 +59,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     context.go(JoinScreen.routeUrl);
   }
 
-  void _onSignup() {
-    print('sign up');
+  void _onLogin() {
+    ref.read(loginProvider.notifier).login(context);
   }
 
   void _onForgotPasswordTap() {}
 
   void _onSaveEmail(String? value) {
     if (value != null) {
-      print('email: $value');
+      ref
+          .read(loginFormProvider.notifier)
+          .update((state) => {...state, 'email': value});
     }
   }
 
   void _onSavePassword(String? value) {
-    print('Password: $value');
+    if (value != null) {
+      ref
+          .read(loginFormProvider.notifier)
+          .update((state) => {...state, 'password': value});
+    }
   }
 
   @override
@@ -164,7 +171,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       AuthBottomSection(
                         buttonText: 'login',
-                        onTap: _onSignup,
+                        onTap: _onLogin,
                         onNavigateTap: () => _onNavigateToSignup(context),
                         descriptionText: 'Don\'t have an account? ',
                         navigateText: 'Sign up',
