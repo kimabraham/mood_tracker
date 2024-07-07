@@ -117,6 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   isObscure: false,
                                   prefixIcon: FontAwesomeIcons.solidEnvelope,
                                   focusNode: _emailFocusNode,
+                                  keyboardType: TextInputType.emailAddress,
                                 ),
                                 Gaps.v20,
                                 LoginTextField(
@@ -124,6 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   isObscure: true,
                                   prefixIcon: FontAwesomeIcons.lock,
                                   focusNode: _passwordFocusNode,
+                                  keyboardType: TextInputType.text,
                                 ),
                               ],
                             ),

@@ -7,6 +7,7 @@ class LoginTextField extends StatelessWidget {
   final IconData prefixIcon;
   final bool isObscure;
   final FocusNode focusNode;
+  final TextInputType keyboardType;
 
   const LoginTextField({
     super.key,
@@ -14,6 +15,7 @@ class LoginTextField extends StatelessWidget {
     required this.prefixIcon,
     required this.isObscure,
     required this.focusNode,
+    required this.keyboardType,
   });
 
   @override
@@ -30,6 +32,7 @@ class LoginTextField extends StatelessWidget {
       child: TextFormField(
         focusNode: focusNode,
         obscureText: isObscure,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(

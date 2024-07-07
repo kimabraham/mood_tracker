@@ -119,6 +119,7 @@ class _JoinScreenState extends State<JoinScreen> {
                                   isObscure: false,
                                   prefixIcon: FontAwesomeIcons.solidEnvelope,
                                   focusNode: _emailFocusNode,
+                                  keyboardType: TextInputType.emailAddress,
                                 ),
                                 Gaps.v20,
                                 LoginTextField(
@@ -126,6 +127,7 @@ class _JoinScreenState extends State<JoinScreen> {
                                   isObscure: false,
                                   prefixIcon: FontAwesomeIcons.solidUser,
                                   focusNode: _usernameFocusNode,
+                                  keyboardType: TextInputType.text,
                                 ),
                                 Gaps.v20,
                                 LoginTextField(
@@ -133,6 +135,7 @@ class _JoinScreenState extends State<JoinScreen> {
                                   isObscure: true,
                                   prefixIcon: FontAwesomeIcons.lock,
                                   focusNode: _passwordFocusNode,
+                                  keyboardType: TextInputType.text,
                                 ),
                                 Gaps.v20,
                                 LoginTextField(
@@ -140,6 +143,7 @@ class _JoinScreenState extends State<JoinScreen> {
                                   isObscure: true,
                                   prefixIcon: FontAwesomeIcons.lock,
                                   focusNode: _confirmPasswordFocusNode,
+                                  keyboardType: TextInputType.text,
                                 ),
                                 Gaps.v14,
                                 const Text(
