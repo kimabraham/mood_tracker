@@ -20,6 +20,8 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Mood tracker',
       theme: ThemeData(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xffF5F9FF),
           surfaceTintColor: Color(0xffF5F9FF),
@@ -30,6 +32,10 @@ class MyApp extends ConsumerWidget {
           secondary: Color(0xff79B1F1),
           inversePrimary: Color(0xff2454A9),
         ),
+        textButtonTheme: const TextButtonThemeData(
+            style: ButtonStyle(
+          overlayColor: WidgetStateColor.transparent,
+        )),
         useMaterial3: true,
       ),
     );
