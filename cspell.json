@@ -3,7 +3,10 @@
   "ignorePaths": [],
   "dictionaryDefinitions": [],
   "dictionaries": [],
-  "words": ["riverpod"],
+  "words": [
+    "cupertino",
+    "riverpod"
+  ],
   "ignoreWords": [],
   "import": []
 }
