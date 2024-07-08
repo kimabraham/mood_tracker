@@ -35,11 +35,14 @@ class MyApp extends ConsumerWidget {
           surfaceTintColor: Color(0xffF5F9FF),
         ),
         scaffoldBackgroundColor: const Color(0xffF5F9FF),
-        colorScheme: const ColorScheme.light(
-          primary: Color(0xff3D5BA9),
-          secondary: Color(0xff79B1F1),
-          onSurface: Color.fromARGB(255, 34, 51, 93),
-          inversePrimary: Color(0xff2454A9),
+        colorScheme: ColorScheme.light(
+          primary: const Color(0xff3D5BA9),
+          secondary: const Color(0xff79B1F1),
+          surface: const Color(0xff79B1F1).withOpacity(0.1),
+          onSurface: const Color.fromARGB(255, 34, 51, 93),
+          inversePrimary: const Color(0xff2454A9),
+          inverseSurface:
+              const Color.fromARGB(255, 34, 51, 93).withOpacity(0.7),
         ),
         textButtonTheme: const TextButtonThemeData(
             style: ButtonStyle(

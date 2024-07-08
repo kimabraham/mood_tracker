@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mood_tracker/features/auth/repositories/auth_repo.dart';
@@ -28,7 +27,6 @@ class ProfileVm extends AsyncNotifier<ProfileModel> {
   Future<void> createProfile(
       UserCredential credential, String email, String name) async {
     state = const AsyncValue.loading();
-    print('hello');
     final profile = ProfileModel(
       uid: credential.user!.uid,
       email: credential.user!.email ?? email,
