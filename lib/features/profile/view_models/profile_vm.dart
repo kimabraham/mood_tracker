@@ -32,6 +32,7 @@ class ProfileVm extends AsyncNotifier<ProfileModel> {
       email: credential.user!.email ?? email,
       name: credential.user!.displayName ?? name,
       hasAvatar: false,
+      avatarUrl: '',
     );
 
     await _profileRepo.createProfile(profile);
@@ -39,9 +40,13 @@ class ProfileVm extends AsyncNotifier<ProfileModel> {
     state = AsyncValue.data(profile);
   }
 
-  Future<void> onAvatarUpload() async {
-    state = AsyncValue.data(state.value!.copyWith(hasAvatar: true));
-    await _profileRepo.updateUser(state.value!.uid, {"hasAvatar": true});
+  Future<void> onAvatarUpload({required String avatarUrl}) async {
+    state = AsyncValue.data(
+      state.value!.copyWith(
+        hasAvatar: true,
+        avatarUrl: avatarUrl,
+      ),
+    );
   }
 }
 

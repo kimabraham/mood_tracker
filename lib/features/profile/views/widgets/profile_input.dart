@@ -22,6 +22,9 @@ class ProfileInputField extends StatelessWidget {
       obscureText: isPasswordField,
       initialValue: isPasswordField ? '' : hintText,
       readOnly: readOnly,
+      style: TextStyle(
+        fontWeight: isPasswordField ? FontWeight.w400 : FontWeight.bold,
+      ),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(

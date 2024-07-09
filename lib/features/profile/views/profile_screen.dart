@@ -15,25 +15,26 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsyncValue = ref.watch(profileProvider);
 
-    return SafeArea(
-        child: GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: Column(
-                children: [
-                  const ProfileAppbar(),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: Sizes.size24,
-                      ),
-                      child: profileAsyncValue.when(
-                        data: (profile) => Column(
+    return profileAsyncValue.when(
+      data: (profile) {
+        return SafeArea(
+            child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Column(
+                    children: [
+                      const ProfileAppbar(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Sizes.size24,
+                        ),
+                        child: Column(
                           children: [
                             Gaps.v20,
                             ProfileHeader(
@@ -46,24 +47,26 @@ class ProfileScreen extends ConsumerWidget {
                             const ProfileButton()
                           ],
                         ),
-                        error: (error, stackTrace) => Center(
-                          child: Text(
-                            error.toString(),
-                            style: const TextStyle(
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                        loading: () => const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        ),
-                      ))
-                ],
-              ),
-            ),
-          );
-        },
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ));
+      },
+      error: (error, stackTrace) => Center(
+        child: Text(
+          error.toString(),
+          style: const TextStyle(
+            color: Colors.red,
+          ),
+        ),
       ),
-    ));
+      loading: () => const Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
+    );
   }
 }

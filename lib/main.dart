@@ -38,7 +38,7 @@ class MyApp extends ConsumerWidget {
         colorScheme: ColorScheme.light(
           primary: const Color(0xff3D5BA9),
           secondary: const Color(0xff79B1F1),
-          surface: const Color(0xff79B1F1).withOpacity(0.1),
+          surface: const Color(0xff79B1F1).withOpacity(0.06),
           onSurface: const Color.fromARGB(255, 34, 51, 93),
           inversePrimary: const Color(0xff2454A9),
           inverseSurface:

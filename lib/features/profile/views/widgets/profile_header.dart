@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mood_tracker/constants/sizes.dart';
 import 'package:mood_tracker/features/profile/view_models/profile_avatar_vm.dart';
+import 'package:mood_tracker/features/profile/view_models/profile_vm.dart';
 
 class ProfileHeader extends ConsumerWidget {
   final String uid, name;
@@ -33,33 +34,32 @@ class ProfileHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final avatarUrl =
-        'https://firebasestorage.googleapis.com/v0/b/mood-tracker-abraham.appspot.com/o/avatars%2F$uid?alt=media&time=${DateTime.now().toString()}';
-    final isLoading = ref.watch(avatarProvider).isLoading;
+    final profileState = ref.watch(profileProvider).value;
+    final avatarState = ref.watch(avatarProvider);
+    final isLoading = avatarState.isLoading;
 
     return Column(
       children: [
         Column(
           children: [
-            isLoading
-                ? Container(
-                    width: Sizes.size64 + Sizes.size64,
-                    height: Sizes.size64 + Sizes.size64,
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: const CircularProgressIndicator.adaptive(),
-                  )
-                : CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    foregroundColor: Theme.of(context).colorScheme.secondary,
-                    foregroundImage: hasAvatar
-                        ? NetworkImage(avatarUrl)
-                        : const AssetImage('assets/images/default_user.png'),
-                    radius: Sizes.size64,
-                    child: const CircularProgressIndicator.adaptive(),
-                  ),
+            if (isLoading)
+              Container(
+                width: Sizes.size64 + Sizes.size64,
+                height: Sizes.size64 + Sizes.size64,
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(shape: BoxShape.circle),
+                child: const CircularProgressIndicator.adaptive(),
+              )
+            else
+              CircleAvatar(
+                backgroundColor: Colors.transparent,
+                foregroundColor: Theme.of(context).colorScheme.secondary,
+                foregroundImage: profileState!.hasAvatar
+                    ? NetworkImage(profileState.avatarUrl)
+                    : const AssetImage('assets/images/default_user.png'),
+                radius: Sizes.size64,
+                child: const CircularProgressIndicator.adaptive(),
+              ),
             Transform.translate(
               offset: const Offset(
                 0,

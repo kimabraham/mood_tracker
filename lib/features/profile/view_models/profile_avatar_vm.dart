@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mood_tracker/features/auth/repositories/auth_repo.dart';
 import 'package:mood_tracker/features/profile/repositories/profile_repo.dart';
@@ -20,8 +19,14 @@ class ProfileAvatarVm extends AsyncNotifier<void> {
     final fileName = ref.read(authRepoProvider).user!.uid;
 
     state = await AsyncValue.guard(() async {
-      await _profileRepo.uploadAvatar(file, fileName);
-      await ref.read(profileProvider.notifier).onAvatarUpload();
+      final downloadUrl = await _profileRepo.uploadAvatar(file, fileName);
+      await _profileRepo.updateUser(fileName, {
+        'avatarUrl': downloadUrl,
+        'hasAvatar': true,
+      });
+      await ref
+          .read(profileProvider.notifier)
+          .onAvatarUpload(avatarUrl: downloadUrl);
     });
   }
 }

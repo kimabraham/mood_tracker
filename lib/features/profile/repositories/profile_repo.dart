@@ -18,9 +18,10 @@ class ProfileRepo {
     return doc.data();
   }
 
-  Future<void> uploadAvatar(File file, String fileName) async {
+  Future<String> uploadAvatar(File file, String fileName) async {
     final fileRef = _storage.ref().child('avatars/$fileName');
     await fileRef.putFile(file);
+    return await fileRef.getDownloadURL();
   }
 
   Future<void> updateUser(String uid, Map<String, dynamic> data) async {
