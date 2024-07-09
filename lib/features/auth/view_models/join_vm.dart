@@ -37,7 +37,6 @@ class JoinVm extends AsyncNotifier<void> {
     );
 
     if (state.hasError) {
-      print(state.error.toString());
       showFirebaseErrorSnack(context, state.error);
     } else {
       context.go(PostsListScreen.routeUrl);

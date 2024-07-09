@@ -4,7 +4,6 @@ import 'package:mood_tracker/constants/gaps.dart';
 import 'package:mood_tracker/constants/sizes.dart';
 import 'package:mood_tracker/features/profile/view_models/profile_vm.dart';
 import 'package:mood_tracker/features/profile/views/widgets/profile_appbar.dart';
-import 'package:mood_tracker/features/profile/views/widgets/profile_button.dart';
 import 'package:mood_tracker/features/profile/views/widgets/profile_form.dart';
 import 'package:mood_tracker/features/profile/views/widgets/profile_header.dart';
 
@@ -43,8 +42,6 @@ class ProfileScreen extends ConsumerWidget {
                               hasAvatar: profile.hasAvatar,
                             ),
                             const ProfileForm(),
-                            Gaps.v24,
-                            const ProfileButton()
                           ],
                         ),
                       )

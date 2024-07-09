@@ -6,12 +6,16 @@ class ProfileInputField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final bool readOnly;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const ProfileInputField({
     super.key,
     required this.hintText,
     required this.icon,
     required this.readOnly,
+    this.controller,
+    this.validator,
   });
 
   @override
@@ -19,8 +23,9 @@ class ProfileInputField extends StatelessWidget {
     final isPasswordField = hintText.contains('password');
 
     return TextFormField(
+      validator: validator,
+      controller: controller,
       obscureText: isPasswordField,
-      initialValue: isPasswordField ? '' : hintText,
       readOnly: readOnly,
       style: TextStyle(
         fontWeight: isPasswordField ? FontWeight.w400 : FontWeight.bold,
@@ -28,8 +33,10 @@ class ProfileInputField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
-          color: Theme.of(context).colorScheme.inverseSurface,
-          fontWeight: FontWeight.w600,
+          color: isPasswordField
+              ? Theme.of(context).colorScheme.inverseSurface
+              : Theme.of(context).colorScheme.onSurface,
+          fontWeight: isPasswordField ? FontWeight.w400 : FontWeight.bold,
         ),
         filled: true,
         fillColor: Theme.of(context).colorScheme.surface,

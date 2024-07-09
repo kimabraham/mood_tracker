@@ -58,7 +58,9 @@ class ProfileHeader extends ConsumerWidget {
                     ? NetworkImage(profileState.avatarUrl)
                     : const AssetImage('assets/images/default_user.png'),
                 radius: Sizes.size64,
-                child: const CircularProgressIndicator.adaptive(),
+                child: profileState.hasAvatar
+                    ? const CircularProgressIndicator.adaptive()
+                    : null,
               ),
             Transform.translate(
               offset: const Offset(
