@@ -33,13 +33,17 @@ class ProfileScreen extends ConsumerWidget {
                         horizontal: Sizes.size24,
                       ),
                       child: profileAsyncValue.when(
-                        data: (profile) => const Column(
+                        data: (profile) => Column(
                           children: [
                             Gaps.v20,
-                            ProfileHeader(),
-                            ProfileForm(),
+                            ProfileHeader(
+                              uid: profile.uid,
+                              name: profile.name,
+                              hasAvatar: profile.hasAvatar,
+                            ),
+                            const ProfileForm(),
                             Gaps.v24,
-                            ProfileButton()
+                            const ProfileButton()
                           ],
                         ),
                         error: (error, stackTrace) => Center(

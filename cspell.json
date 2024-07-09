@@ -11,7 +11,8 @@
     "riverpod",
     "Signup",
     "subloc",
-    "unfocus"
+    "unfocus",
+    "xfile"
   ],
   "ignoreWords": [],
   "import": []

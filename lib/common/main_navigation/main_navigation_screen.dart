@@ -51,7 +51,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         padding: EdgeInsets.zero,
         notchMargin: 5,
         height: Sizes.size56,
-        shape: const CircularNotchedRectangle(),
+        color: Colors.white,
         child: Container(
           decoration: BoxDecoration(
             border: Border(
@@ -94,9 +94,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     // 버튼 스타일 및 레이아웃 설정
                     width: Sizes.size72,
                     height: Sizes.size72,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.blue,
+                      color: Theme.of(context).colorScheme.primary,
+                      border: Border.all(
+                          width: Sizes.size1,
+                          color: Theme.of(context).colorScheme.inversePrimary),
                     ),
                     alignment: Alignment.center, // 아이콘 가운데 정렬
                     child: const FaIcon(

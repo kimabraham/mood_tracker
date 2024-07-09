@@ -6,30 +6,40 @@ class ProfileInputField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final bool readOnly;
-  final String initValue;
 
   const ProfileInputField({
     super.key,
     required this.hintText,
     required this.icon,
     required this.readOnly,
-    required this.initValue,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isPasswordField = hintText.contains('password');
+
     return TextFormField(
-      initialValue: initValue,
+      obscureText: isPasswordField,
+      initialValue: isPasswordField ? '' : hintText,
       readOnly: readOnly,
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: TextStyle(
+          color: Theme.of(context).colorScheme.inverseSurface,
+          fontWeight: FontWeight.w600,
+        ),
         filled: true,
         fillColor: Theme.of(context).colorScheme.surface,
         prefixIcon: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: Sizes.size14,
           ),
-          child: FaIcon(icon),
+          child: FaIcon(
+            icon,
+            color: isPasswordField
+                ? Theme.of(context).colorScheme.inverseSurface
+                : Theme.of(context).colorScheme.onSurface,
+          ),
         ),
         prefixIconConstraints: const BoxConstraints(maxHeight: 48),
         contentPadding: const EdgeInsets.symmetric(

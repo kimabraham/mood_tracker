@@ -38,6 +38,11 @@ class ProfileVm extends AsyncNotifier<ProfileModel> {
 
     state = AsyncValue.data(profile);
   }
+
+  Future<void> onAvatarUpload() async {
+    state = AsyncValue.data(state.value!.copyWith(hasAvatar: true));
+    await _profileRepo.updateUser(state.value!.uid, {"hasAvatar": true});
+  }
 }
 
 final profileProvider = AsyncNotifierProvider<ProfileVm, ProfileModel>(

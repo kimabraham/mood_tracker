@@ -31,4 +31,18 @@ class ProfileModel {
         email = json['email'],
         name = json['name'],
         hasAvatar = json['hasAvatar'];
+
+  ProfileModel copyWith({
+    String? uid,
+    String? email,
+    String? name,
+    bool? hasAvatar,
+  }) {
+    return ProfileModel(
+      uid: uid ?? this.uid,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      hasAvatar: hasAvatar ?? this.hasAvatar,
+    );
+  }
 }

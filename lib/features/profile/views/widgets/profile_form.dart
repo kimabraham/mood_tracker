@@ -20,17 +20,15 @@ class ProfileForm extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ProfileInputField(
-            hintText: "Email",
+            hintText: profile.email,
             icon: FontAwesomeIcons.envelope,
             readOnly: true,
-            initValue: profile.email,
           ),
           Gaps.v10,
           ProfileInputField(
-            hintText: "Username",
+            hintText: profile.name,
             icon: FontAwesomeIcons.user,
             readOnly: true,
-            initValue: profile.name,
           ),
           Gaps.v28,
           Text(
@@ -46,14 +44,12 @@ class ProfileForm extends ConsumerWidget {
             hintText: "Enter old password",
             icon: FontAwesomeIcons.lock,
             readOnly: false,
-            initValue: '',
           ),
           Gaps.v10,
           const ProfileInputField(
             hintText: "Enter new password",
             icon: FontAwesomeIcons.lock,
             readOnly: false,
-            initValue: '',
           ),
         ],
       ),

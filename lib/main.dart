@@ -42,7 +42,7 @@ class MyApp extends ConsumerWidget {
           onSurface: const Color.fromARGB(255, 34, 51, 93),
           inversePrimary: const Color(0xff2454A9),
           inverseSurface:
-              const Color.fromARGB(255, 34, 51, 93).withOpacity(0.7),
+              const Color.fromARGB(255, 34, 51, 93).withOpacity(0.5),
         ),
         textButtonTheme: const TextButtonThemeData(
             style: ButtonStyle(
