@@ -1,0 +1,100 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mood_tracker/constants/gaps.dart';
+import 'package:mood_tracker/constants/mood_colors.dart';
+import 'package:mood_tracker/constants/mood_icons.dart';
+import 'package:mood_tracker/constants/sizes.dart';
+import 'package:mood_tracker/features/posts/models/post_model.dart';
+
+class PostCard extends StatelessWidget {
+  // final String title;
+  // final String description;
+  // final int createdAt;
+  final Mood emotion;
+
+  const PostCard({
+    super.key,
+    required this.emotion,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: Sizes.size96),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: Sizes.size10,
+          vertical: Sizes.size8,
+        ),
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          color: MoodColors.opacityPrimaryColors[emotion],
+          border: Border.all(
+            width: Sizes.size1,
+            color: MoodColors.primaryColors[emotion] ?? Colors.grey,
+          ),
+          borderRadius: BorderRadius.circular(
+            Sizes.size20,
+          ),
+        ),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Positioned(
+              top: -Sizes.size28,
+              right: -Sizes.size20,
+              child: FaIcon(
+                MoodIcons.emotionIcons[emotion],
+                color: MoodColors.primaryColors[emotion],
+                size: Sizes.size72,
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: Sizes.size8,
+                    ),
+                    child: Text(
+                      'Today is happy day :)',
+                      style: TextStyle(
+                        fontSize: Sizes.size22,
+                        fontWeight: FontWeight.w500,
+                        color: MoodColors.secondaryColors[emotion],
+                      ),
+                    ),
+                  ),
+                ),
+                Gaps.v20,
+                Text(
+                  'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',
+                  style: TextStyle(
+                    fontSize: Sizes.size16,
+                    color: MoodColors.darkSecondaryColors[emotion],
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                ),
+                Gaps.v16,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    '2 days ago',
+                    style: TextStyle(
+                      fontSize: Sizes.size14,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Gaps.v16
+          ],
+        ),
+      ),
+    );
+  }
+}
