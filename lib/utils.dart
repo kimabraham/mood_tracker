@@ -13,3 +13,17 @@ void showFirebaseErrorSnack(BuildContext context, Object? error) {
     ),
   );
 }
+
+String formatTimeDifference(int timestamp) {
+  final now = DateTime.now();
+  final postTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+  final difference = now.difference(postTime);
+
+  if (difference.inDays >= 2) {
+    return '${difference.inDays} days ago';
+  } else if (difference.inMinutes >= 1) {
+    return '${difference.inMinutes} minutes ago';
+  } else {
+    return 'now';
+  }
+}

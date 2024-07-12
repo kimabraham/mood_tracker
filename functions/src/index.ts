@@ -17,6 +17,7 @@ export const onPostCreated = functions.firestore
         .collection("posts")
         .doc(postId)
         .set({
+          name: post.creator,
           postId: postId,
           title: post.title,
           description: post.description,

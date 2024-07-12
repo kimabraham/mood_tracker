@@ -32,6 +32,22 @@ class PostRepo {
   Future<void> updatePost(String postId, Map<String, dynamic> data) async {
     await _db.collection('posts').doc(postId).update(data);
   }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchPosts(
+      {int? lastItemCreatedAt, required String uid}) async {
+    final query = _db
+        .collection('users')
+        .doc(uid)
+        .collection('posts')
+        .orderBy('createdAt', descending: true)
+        .limit(4);
+
+    if (lastItemCreatedAt == null) {
+      return query.get();
+    } else {
+      return query.startAfter([lastItemCreatedAt]).get();
+    }
+  }
 }
 
 final postRepoProvider = Provider(

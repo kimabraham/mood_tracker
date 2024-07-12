@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mood_tracker/common/main_navigation/view_models/navigation_index_vm.dart';
 import 'package:mood_tracker/features/auth/repositories/auth_repo.dart';
 import 'package:mood_tracker/features/posts/repositories/post_repo.dart';
 import 'package:mood_tracker/features/posts/view_models/post_form_vm.dart';
+import 'package:mood_tracker/features/posts/view_models/post_vm.dart';
 import 'package:mood_tracker/features/profile/view_models/profile_vm.dart';
 
 class PostAddVm extends AsyncNotifier<void> {
@@ -14,7 +17,7 @@ class PostAddVm extends AsyncNotifier<void> {
     _postRepo = ref.read(postRepoProvider);
   }
 
-  Future<void> createPost() async {
+  Future<void> createPost(BuildContext context) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final user = ref.read(authRepoProvider).user!;
@@ -40,6 +43,13 @@ class PostAddVm extends AsyncNotifier<void> {
       );
 
       await _postRepo.updatePost(postId, {'images': imageUrls});
+
+      ref.read(postProvider.notifier).addPost(newPost.copyWith(
+            id: postId,
+            images: imageUrls,
+          ));
+
+      ref.read(navigationProvider.notifier).setIndex(0);
     });
   }
 }

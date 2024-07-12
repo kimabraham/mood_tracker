@@ -6,20 +6,16 @@ import 'package:mood_tracker/features/posts/view_models/post_add_vm.dart';
 import 'package:mood_tracker/features/posts/view_models/post_form_vm.dart';
 
 class PostSaveButton extends ConsumerWidget {
-  const PostSaveButton({
-    super.key,
-  });
+  final Future<void> Function() onTap;
+
+  const PostSaveButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoading = ref.watch(postAddProvider).isLoading;
+    final isLoading = ref.read(postAddProvider).isLoading;
 
     return GestureDetector(
-      onTap: isLoading
-          ? null
-          : () async {
-              ref.read(postAddProvider.notifier).createPost();
-            },
+      onTap: isLoading ? null : onTap,
       child: Row(
         children: [
           Expanded(

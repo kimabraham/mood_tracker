@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mood_tracker/common/main_navigation/view_models/navigation_index_vm.dart';
 import 'package:mood_tracker/common/main_navigation/widgets/nav_tab.dart';
 import 'package:mood_tracker/constants/gaps.dart';
 import 'package:mood_tracker/constants/sizes.dart';
-import 'package:mood_tracker/features/posts/view_models/post_form_vm.dart';
 import 'package:mood_tracker/features/posts/views/post_add_screen.dart';
 import 'package:mood_tracker/features/posts/views/posts_list_screen.dart';
 import 'package:mood_tracker/features/profile/views/profile_screen.dart';
@@ -24,32 +24,24 @@ class MainNavigationScreen extends ConsumerStatefulWidget {
 }
 
 class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
-  int _selectedIndex = 0;
-
-  void _onTap(int index) {
-    if (index == 1) {
-      ref.read(postFormProvider.notifier).reset();
-    }
-
-    _selectedIndex = index;
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
+    final selectedIndex = ref.watch(navigationProvider);
+    final onTap = ref.read(navigationProvider.notifier).setIndex;
+
     return Scaffold(
       body: Stack(
         children: [
           Offstage(
-            offstage: _selectedIndex != 0,
-            child: PostsListScreen(),
+            offstage: selectedIndex != 0,
+            child: const PostsListScreen(),
           ),
           Offstage(
-            offstage: _selectedIndex != 1,
+            offstage: selectedIndex != 1,
             child: const PostAddScreen(),
           ),
           Offstage(
-            offstage: _selectedIndex != 2,
+            offstage: selectedIndex != 2,
             child: const ProfileScreen(),
           ),
         ],
@@ -75,30 +67,27 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
                 children: [
                   NavTab(
                     title: 'home',
-                    isSelected: _selectedIndex == 0,
+                    isSelected: selectedIndex == 0,
                     icon: FontAwesomeIcons.house,
-                    onTap: () => _onTap(0),
-                    selectedIndex: _selectedIndex,
+                    onTap: () => onTap(0),
+                    selectedIndex: selectedIndex,
                   ),
                   Gaps.h96,
                   NavTab(
                     title: 'profile',
-                    isSelected: _selectedIndex == 2,
+                    isSelected: selectedIndex == 2,
                     icon: FontAwesomeIcons.solidUser,
-                    onTap: () => _onTap(2),
-                    selectedIndex: _selectedIndex,
+                    onTap: () => onTap(2),
+                    selectedIndex: selectedIndex,
                   ),
                 ],
               ),
               Positioned(
-                // 가운데 플러스 버튼
                 left: (MediaQuery.of(context).size.width - Sizes.size72) / 2,
                 bottom: Sizes.size10,
                 child: GestureDetector(
-                  // 버튼 전체 영역을 터치 가능하게 함
-                  onTap: () => _onTap(1), // 플러스 버튼을 누르면 새 게시물 화면으로 이동
+                  onTap: () => onTap(1),
                   child: Container(
-                    // 버튼 스타일 및 레이아웃 설정
                     width: Sizes.size64,
                     height: Sizes.size64,
                     decoration: BoxDecoration(
@@ -108,7 +97,7 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
                           width: Sizes.size1,
                           color: Theme.of(context).colorScheme.inversePrimary),
                     ),
-                    alignment: Alignment.center, // 아이콘 가운데 정렬
+                    alignment: Alignment.center,
                     child: const FaIcon(
                       FontAwesomeIcons.plus,
                       color: Colors.white,

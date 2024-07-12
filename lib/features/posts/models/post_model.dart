@@ -81,4 +81,18 @@ class PostModel {
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
+
+  PostModel.fromJson({
+    required Map<String, dynamic> json,
+    required String postId,
+    required String uid,
+  })  : id = postId,
+        title = json['title'],
+        description = json['description'],
+        creator = json['name'],
+        creatorUid = uid,
+        emotion = Mood.values.byName(json['emotion']),
+        images = json['images'],
+        createdAt = json['createdAt'],
+        updatedAt = json['updatedAt'] ?? 0;
 }

@@ -4,6 +4,7 @@ import 'package:mood_tracker/constants/emotions.dart';
 import 'package:mood_tracker/constants/gaps.dart';
 import 'package:mood_tracker/constants/sizes.dart';
 import 'package:mood_tracker/features/auth/views/widgets/add_photo_icons_buttons.dart';
+import 'package:mood_tracker/features/posts/view_models/post_add_vm.dart';
 import 'package:mood_tracker/features/posts/view_models/post_form_vm.dart';
 import 'package:mood_tracker/features/posts/views/widgets/add_photo_list_view.dart';
 import 'package:mood_tracker/features/posts/views/widgets/emotion_card_button.dart';
@@ -13,20 +14,26 @@ import 'package:mood_tracker/features/posts/views/widgets/post_save_button.dart'
 class PostAddScreen extends ConsumerStatefulWidget {
   const PostAddScreen({super.key});
 
+  static const String routeUrl = '/post/add';
+  static const String routeName = 'postAdd';
+
   @override
   ConsumerState<PostAddScreen> createState() => _PostAddScreenState();
 }
 
 class _PostAddScreenState extends ConsumerState<PostAddScreen> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _titleController = TextEditingController();
+
   final TextEditingController _descriptionController = TextEditingController();
 
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
+  Future<void> _onPressSave() async {
+    final isLoading = ref.watch(postAddProvider).isLoading;
+
+    if (!isLoading && _formKey.currentState!.validate()) {
+      ref.read(postAddProvider.notifier).createPost(context);
+    }
   }
 
   @override
@@ -53,23 +60,12 @@ class _PostAddScreenState extends ConsumerState<PostAddScreen> {
                       padding: EdgeInsets.symmetric(
                         horizontal: Sizes.size24,
                       ),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Express Yourself',
-                            style: TextStyle(
-                              fontSize: Sizes.size18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Gaps.v5,
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'How Are You Feeling Today?',
-                            ),
-                          ),
-                        ],
+                      child: Text(
+                        'Express Yourself',
+                        style: TextStyle(
+                          fontSize: Sizes.size18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Gaps.v10,
@@ -110,8 +106,7 @@ class _PostAddScreenState extends ConsumerState<PostAddScreen> {
                               hintText: 'What\'s on your mind?',
                               maxLength: 24,
                               validator: (value) {
-                                print(value);
-                                if (value == null || value.isEmpty) {
+                                if (value == null || value == '') {
                                   return 'A title for your mood today is required.';
                                 }
                                 return null;
@@ -125,7 +120,7 @@ class _PostAddScreenState extends ConsumerState<PostAddScreen> {
                               hintText: 'Share your story...',
                               maxLines: 4,
                               validator: (value) {
-                                if (value == null || value.isEmpty) {
+                                if (value == null || value == '') {
                                   return 'A description of your mood is required.';
                                 }
                                 return null;
@@ -133,7 +128,7 @@ class _PostAddScreenState extends ConsumerState<PostAddScreen> {
                             ),
                             if (ref.watch(postFormProvider).images.length != 3)
                               const AddPhotoIconsButtons(),
-                            Gaps.v10,
+                            // Gaps.v10,
                             if (ref
                                 .watch(postFormProvider)
                                 .images
@@ -141,7 +136,7 @@ class _PostAddScreenState extends ConsumerState<PostAddScreen> {
                               const AddPhotoListView(),
                               Gaps.v10,
                             ],
-                            const PostSaveButton(),
+                            PostSaveButton(onTap: _onPressSave),
                           ],
                         ),
                       ),
