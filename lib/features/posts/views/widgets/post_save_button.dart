@@ -12,10 +12,14 @@ class PostSaveButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isLoading = ref.watch(postAddProvider).isLoading;
+
     return GestureDetector(
-      onTap: () {
-        ref.read(postAddProvider.notifier).createPost();
-      },
+      onTap: isLoading
+          ? null
+          : () async {
+              ref.read(postAddProvider.notifier).createPost();
+            },
       child: Row(
         children: [
           Expanded(
@@ -25,8 +29,11 @@ class PostSaveButton extends ConsumerWidget {
               ),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: MoodColors
-                      .primaryColors[ref.watch(postFormProvider).emotion],
+                  color: isLoading
+                      ? MoodColors.opacityPrimaryColors[
+                          ref.watch(postFormProvider).emotion]
+                      : MoodColors
+                          .primaryColors[ref.watch(postFormProvider).emotion],
                   borderRadius: BorderRadius.circular(
                     Sizes.size5,
                   )),

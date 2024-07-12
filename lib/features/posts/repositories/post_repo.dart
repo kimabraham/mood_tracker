@@ -7,12 +7,13 @@ class PostRepo {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  Future<List<UploadTask>> uploadImageFiles(List images, String uid) async {
+  Future<List<UploadTask>> uploadImageFiles(
+      List images, String uid, String postId) async {
     List<UploadTask> uploadTasks = [];
 
     for (var image in images) {
       final fileRef = _storage.ref().child(
-            '/images/$uid/${DateTime.now().millisecondsSinceEpoch.toString()}',
+            '/images/$uid/$postId/${DateTime.now().millisecondsSinceEpoch.toString()}',
           );
 
       final uploadTask = fileRef.putFile(image);
@@ -22,9 +23,14 @@ class PostRepo {
     return uploadTasks;
   }
 
-  Future<void> createPosts(PostModel post) async {
-    print(post.toJson());
-    await _db.collection('posts').add(post.toJson());
+  Future<String> createPost(PostModel post, String uid) async {
+    final postRef = await _db.collection('posts').add(post.toJson());
+
+    return postRef.id;
+  }
+
+  Future<void> updatePost(String postId, Map<String, dynamic> data) async {
+    await _db.collection('posts').doc(postId).update(data);
   }
 }
 

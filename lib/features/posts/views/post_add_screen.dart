@@ -74,7 +74,7 @@ class _PostAddScreenState extends ConsumerState<PostAddScreen> {
                     ),
                     Gaps.v10,
                     SizedBox(
-                      height: 76,
+                      height: Sizes.size72 + Sizes.size4,
                       child: ListView.separated(
                         padding: const EdgeInsets.symmetric(
                           horizontal: Sizes.size24,

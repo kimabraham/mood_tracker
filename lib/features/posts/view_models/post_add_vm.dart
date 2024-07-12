@@ -15,33 +15,31 @@ class PostAddVm extends AsyncNotifier<void> {
   }
 
   Future<void> createPost() async {
-    print('done?');
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final user = ref.read(authRepoProvider).user;
+      final user = ref.read(authRepoProvider).user!;
       final userProfile = ref.read(profileProvider).value;
       final post = ref.read(postFormProvider);
-
-      final task = await _postRepo.uploadImageFiles(
+      final newPost = post.copyWith(
+        creator: userProfile!.name,
+        creatorUid: user.uid,
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+      );
+      final postId = await _postRepo.createPost(newPost, user.uid);
+      final fileUrlTasks = await _postRepo.uploadImageFiles(
         post.images,
-        user!.uid,
+        user.uid,
+        postId,
       );
 
       final List<String> imageUrls = await Future.wait(
-        task.map((uploadTask) async {
+        fileUrlTasks.map((uploadTask) async {
           final snapshot = await uploadTask;
           return await snapshot.ref.getDownloadURL();
         }),
       );
 
-      final newPost = post.copyWith(
-        images: imageUrls,
-        creator: userProfile!.name,
-        creatorUid: user.uid,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-      );
-
-      await _postRepo.createPosts(newPost);
+      await _postRepo.updatePost(postId, {'images': imageUrls});
     });
   }
 }

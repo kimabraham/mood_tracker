@@ -1,1 +1,46 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"mood-tracker-abraham","appId":"1:888885396697:android:4c9ec52b8f32553f63aac8","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"mood-tracker-abraham","appId":"1:888885396697:ios:feca334823f4e2bb63aac8","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"mood-tracker-abraham","configurations":{"android":"1:888885396697:android:4c9ec52b8f32553f63aac8","ios":"1:888885396697:ios:feca334823f4e2bb63aac8","web":"1:888885396697:web:fba23c45dd346d5763aac8"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "mood-tracker-abraham",
+          "appId": "1:888885396697:android:4c9ec52b8f32553f63aac8",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "mood-tracker-abraham",
+          "appId": "1:888885396697:ios:feca334823f4e2bb63aac8",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "mood-tracker-abraham",
+          "configurations": {
+            "android": "1:888885396697:android:4c9ec52b8f32553f63aac8",
+            "ios": "1:888885396697:ios:feca334823f4e2bb63aac8",
+            "web": "1:888885396697:web:fba23c45dd346d5763aac8"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
+}

@@ -40,8 +40,8 @@ class PostModel {
       'description': description,
       'creator': creator,
       'creatorUid': creatorUid,
-      'emotion': emotion,
-      'images': images,
+      'emotion': emotion.toString().split('.').last,
+      'images': '',
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };

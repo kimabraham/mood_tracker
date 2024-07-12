@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/constants/sizes.dart';
 
 class NavTab extends StatelessWidget {
   final IconData icon;
