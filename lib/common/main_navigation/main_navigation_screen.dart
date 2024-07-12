@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mood_tracker/common/main_navigation/widgets/nav_tab.dart';
 import 'package:mood_tracker/constants/gaps.dart';
 import 'package:mood_tracker/constants/sizes.dart';
+import 'package:mood_tracker/features/posts/view_models/post_form_vm.dart';
 import 'package:mood_tracker/features/posts/views/post_add_screen.dart';
 import 'package:mood_tracker/features/posts/views/posts_list_screen.dart';
 import 'package:mood_tracker/features/profile/views/profile_screen.dart';
 
-class MainNavigationScreen extends StatefulWidget {
+class MainNavigationScreen extends ConsumerStatefulWidget {
   static const String routeName = 'mainNavigation';
   final String tab;
 
@@ -17,13 +19,18 @@ class MainNavigationScreen extends StatefulWidget {
   });
 
   @override
-  State<MainNavigationScreen> createState() => _MainNavigationScreenState();
+  ConsumerState<MainNavigationScreen> createState() =>
+      _MainNavigationScreenState();
 }
 
-class _MainNavigationScreenState extends State<MainNavigationScreen> {
+class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
   int _selectedIndex = 0;
 
   void _onTap(int index) {
+    if (index == 1) {
+      ref.read(postFormProvider.notifier).reset();
+    }
+
     _selectedIndex = index;
     setState(() {});
   }
@@ -35,7 +42,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         children: [
           Offstage(
             offstage: _selectedIndex != 0,
-            child: const PostsListScreen(),
+            child: PostsListScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 1,
@@ -50,7 +57,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       bottomNavigationBar: BottomAppBar(
         padding: EdgeInsets.zero,
         notchMargin: 5,
-        height: Sizes.size56,
+        height: Sizes.size60,
         color: Colors.white,
         child: Container(
           decoration: BoxDecoration(
@@ -86,14 +93,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               Positioned(
                 // 가운데 플러스 버튼
                 left: (MediaQuery.of(context).size.width - Sizes.size72) / 2,
-                bottom: 0,
+                bottom: Sizes.size10,
                 child: GestureDetector(
                   // 버튼 전체 영역을 터치 가능하게 함
                   onTap: () => _onTap(1), // 플러스 버튼을 누르면 새 게시물 화면으로 이동
                   child: Container(
                     // 버튼 스타일 및 레이아웃 설정
-                    width: Sizes.size72,
-                    height: Sizes.size72,
+                    width: Sizes.size64,
+                    height: Sizes.size64,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Theme.of(context).colorScheme.primary,

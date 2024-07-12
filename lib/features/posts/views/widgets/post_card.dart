@@ -7,14 +7,11 @@ import 'package:mood_tracker/constants/sizes.dart';
 import 'package:mood_tracker/features/posts/models/post_model.dart';
 
 class PostCard extends StatelessWidget {
-  // final String title;
-  // final String description;
-  // final int createdAt;
-  final Mood emotion;
+  final PostModel post;
 
   const PostCard({
     super.key,
-    required this.emotion,
+    required this.post,
   });
 
   @override
@@ -28,10 +25,10 @@ class PostCard extends StatelessWidget {
         ),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-          color: MoodColors.opacityPrimaryColors[emotion],
+          color: MoodColors.opacityPrimaryColors[post.emotion],
           border: Border.all(
             width: Sizes.size1,
-            color: MoodColors.primaryColors[emotion] ?? Colors.grey,
+            color: MoodColors.primaryColors[post.emotion] ?? Colors.grey,
           ),
           borderRadius: BorderRadius.circular(
             Sizes.size20,
@@ -44,8 +41,8 @@ class PostCard extends StatelessWidget {
               top: -Sizes.size28,
               right: -Sizes.size20,
               child: FaIcon(
-                MoodIcons.emotionIcons[emotion],
-                color: MoodColors.primaryColors[emotion],
+                MoodIcons.emotionIcons[post.emotion],
+                color: MoodColors.primaryColors[post.emotion],
                 size: Sizes.size72,
               ),
             ),
@@ -59,21 +56,21 @@ class PostCard extends StatelessWidget {
                       top: Sizes.size8,
                     ),
                     child: Text(
-                      'Today is happy day :)',
+                      post.title,
                       style: TextStyle(
                         fontSize: Sizes.size22,
                         fontWeight: FontWeight.w500,
-                        color: MoodColors.secondaryColors[emotion],
+                        color: MoodColors.secondaryColors[post.emotion],
                       ),
                     ),
                   ),
                 ),
                 Gaps.v20,
                 Text(
-                  'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',
+                  post.description,
                   style: TextStyle(
                     fontSize: Sizes.size16,
-                    color: MoodColors.darkSecondaryColors[emotion],
+                    color: MoodColors.darkSecondaryColors[post.emotion],
                   ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
@@ -82,7 +79,7 @@ class PostCard extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    '2 days ago',
+                    '${post.createdAt}',
                     style: TextStyle(
                       fontSize: Sizes.size14,
                       color: Colors.grey.shade700,
@@ -91,7 +88,6 @@ class PostCard extends StatelessWidget {
                 ),
               ],
             ),
-            Gaps.v16
           ],
         ),
       ),

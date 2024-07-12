@@ -23,14 +23,14 @@ class EmotionCardButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: Sizes.size96,
+        width: Sizes.size80,
         padding: const EdgeInsets.symmetric(
           horizontal: Sizes.size6,
-          vertical: Sizes.size10,
+          vertical: Sizes.size6,
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(
-            Sizes.size10,
+            Sizes.size5,
           ),
           color: MoodColors.opacityPrimaryColors[emotion],
           border: Border.all(
@@ -45,13 +45,14 @@ class EmotionCardButton extends StatelessWidget {
             FaIcon(
               MoodIcons.emotionIcons[emotion],
               color: MoodColors.primaryColors[emotion],
-              size: Sizes.size36,
+              size: Sizes.size32,
             ),
             Gaps.v5,
             Text(
               '${emotion.toString().split('.').last[0].toUpperCase()}${emotion.toString().split('.').last.substring(1)}',
               style: TextStyle(
                 color: MoodColors.darkPrimaryColors[emotion],
+                fontSize: Sizes.size12,
               ),
             ),
           ],

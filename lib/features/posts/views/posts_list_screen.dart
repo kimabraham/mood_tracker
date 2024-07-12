@@ -8,7 +8,18 @@ class PostsListScreen extends StatelessWidget {
   static const String routeUrl = '/home';
   static const String routeName = 'home';
 
-  const PostsListScreen({super.key});
+  PostsListScreen({super.key});
+
+  final mockPost = PostModel(
+      id: '123',
+      title: 'Today is happy day :)',
+      description:
+          'description_description_description_description_description_description_description_description_description_description_description_description_description_description_description_description_description_description_description_description',
+      creator: 'kim',
+      creatorUid: '123123',
+      emotion: Mood.joy,
+      createdAt: 123123,
+      updatedAt: 123123);
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +30,23 @@ class PostsListScreen extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            Gaps.v10,
-            CupertinoSearchTextField(
-              onChanged: (value) {},
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: Sizes.size20,
+              ),
+              child: CupertinoSearchTextField(
+                onChanged: (value) {},
+              ),
             ),
             Expanded(
               child: ListView.separated(
-                padding: const EdgeInsets.symmetric(
-                  vertical: Sizes.size20,
+                padding: const EdgeInsets.only(
+                  bottom: Sizes.size20,
                 ),
-                itemBuilder: (context, index) => const PostCard(
-                  emotion: Mood.anger,
+                itemBuilder: (context, index) => PostCard(
+                  post: mockPost,
                 ),
-                separatorBuilder: (context, index) => Gaps.v20,
+                separatorBuilder: (context, index) => Gaps.v10,
                 itemCount: 10,
               ),
             ),
