@@ -29,60 +29,65 @@ class _PostsListScreenState extends ConsumerState<PostsListScreen> {
   Widget build(BuildContext context) {
     final postsAsyncValue = ref.watch(postProvider);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: Sizes.size24,
-      ),
-      child: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: Sizes.size20,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: Sizes.size24,
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: Sizes.size20,
+                ),
+                child: CupertinoSearchTextField(
+                  onChanged: (value) {
+                    ref.read(postProvider.notifier).searchPost(value);
+                  },
+                ),
               ),
-              child: CupertinoSearchTextField(
-                onChanged: (value) {
-                  ref.read(postProvider.notifier).searchPost(value);
-                },
-              ),
-            ),
-            postsAsyncValue.when(
-                data: (posts) {
-                  return Expanded(
-                    child: NotificationListener<ScrollNotification>(
-                      onNotification: (notification) {
-                        if (notification is ScrollEndNotification &&
-                            _scrollController.position.extentAfter == 0) {
-                          ref.read(postProvider.notifier).fetchNextPage();
-                        }
-                        return false;
-                      },
-                      child: ListView.separated(
-                        controller: _scrollController,
-                        padding: const EdgeInsets.only(
-                          bottom: Sizes.size20,
-                        ),
-                        itemBuilder: (context, index) => PostCard(
-                          post: posts[index],
-                        ),
-                        separatorBuilder: (context, index) => Gaps.v20,
-                        itemCount: posts.length,
-                      ),
-                    ),
-                  );
-                },
-                error: (error, stackTrace) => Center(
-                      child: Text(
-                        'Error: $error',
-                        style: const TextStyle(
-                          color: Colors.red,
+              postsAsyncValue.when(
+                  data: (posts) {
+                    return Expanded(
+                      child: NotificationListener<ScrollNotification>(
+                        onNotification: (notification) {
+                          if (notification is ScrollEndNotification &&
+                              _scrollController.position.extentAfter == 0) {
+                            ref.read(postProvider.notifier).fetchNextPage();
+                          }
+                          return false;
+                        },
+                        child: ListView.separated(
+                          controller: _scrollController,
+                          padding: const EdgeInsets.only(
+                            bottom: Sizes.size20,
+                          ),
+                          itemBuilder: (context, index) => PostCard(
+                            post: posts[index],
+                          ),
+                          separatorBuilder: (context, index) => Gaps.v20,
+                          itemCount: posts.length,
                         ),
                       ),
-                    ),
-                loading: () => const Center(
-                      child: CircularProgressIndicator(),
-                    ))
-          ],
+                    );
+                  },
+                  error: (error, stackTrace) => Center(
+                        child: Text(
+                          'Error: $error',
+                          style: const TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                  loading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ))
+            ],
+          ),
         ),
       ),
     );

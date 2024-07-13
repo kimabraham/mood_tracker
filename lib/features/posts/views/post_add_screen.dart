@@ -133,6 +133,7 @@ class _PostAddScreenState extends ConsumerState<PostAddScreen> {
                                 .watch(postFormProvider)
                                 .images
                                 .isNotEmpty) ...[
+                              Gaps.v10,
                               const AddPhotoListView(),
                               Gaps.v10,
                             ],

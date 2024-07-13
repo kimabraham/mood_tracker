@@ -44,16 +44,31 @@ class PostFormNotifier extends StateNotifier<PostModel> {
   }
 
   Future<void> onTapPhotoByGallery() async {
-    final files = await ImagePicker().pickMultiImage(
-      imageQuality: 70,
-      maxWidth: 500,
-      maxHeight: 500,
-      limit: 3 - state.images.length,
-    );
+    final restPhotoCount = 3 - state.images.length;
 
-    if (files.isNotEmpty) {
-      update(
-          images: [...state.images, ...files.map((xfile) => File(xfile.path))]);
+    if (restPhotoCount > 1) {
+      final files = await ImagePicker().pickMultiImage(
+        imageQuality: 70,
+        maxWidth: 500,
+        maxHeight: 500,
+        limit: restPhotoCount,
+      );
+      if (files.isNotEmpty) {
+        update(images: [
+          ...state.images,
+          ...files.map((xfile) => File(xfile.path))
+        ]);
+      }
+    } else {
+      final file = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 70,
+        maxWidth: 500,
+        maxHeight: 500,
+      );
+      if (file != null) {
+        update(images: [...state.images, File(file.path)]);
+      }
     }
   }
 

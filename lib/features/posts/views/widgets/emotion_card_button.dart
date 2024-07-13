@@ -52,7 +52,7 @@ class EmotionCardButton extends StatelessWidget {
               '${emotion.toString().split('.').last[0].toUpperCase()}${emotion.toString().split('.').last.substring(1)}',
               style: TextStyle(
                 color: MoodColors.darkPrimaryColors[emotion],
-                fontSize: Sizes.size12,
+                fontSize: Sizes.size10,
               ),
             ),
           ],

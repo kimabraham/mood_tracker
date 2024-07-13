@@ -24,7 +24,7 @@ final routerProvider = Provider(
       },
       routes: [
         GoRoute(
-          path: '/:tab(home|new|profile)',
+          path: '/:tab(home|profile)',
           name: MainNavigationScreen.routeName,
           builder: (context, state) {
             final tab = state.params['tab']!;

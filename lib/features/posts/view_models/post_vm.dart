@@ -40,7 +40,7 @@ class PostVm extends AsyncNotifier<List<PostModel>> {
   Future<void> searchPost(String term) async {
     if (term == '') {
       _list = await _fetchPosts(lastItemCreatedAt: null);
-      state = AsyncValue.data([..._list]);
+      state = AsyncValue.data(_list);
     } else {
       final result = await _postRepo.searchPost(_authRepo.user!.uid, term);
       final posts = result.docs.map(

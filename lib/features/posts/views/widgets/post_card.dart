@@ -113,7 +113,7 @@ class PostCard extends ConsumerWidget {
                   Gaps.v10,
                   if (post.images.isNotEmpty)
                     SizedBox(
-                      height: Sizes.size96 * 1.5,
+                      height: Sizes.size96 * 2,
                       child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {

@@ -16,7 +16,7 @@ class AddPhotoListView extends ConsumerWidget {
     final images = ref.watch(postFormProvider).images;
 
     return SizedBox(
-      height: 160,
+      height: 240,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
