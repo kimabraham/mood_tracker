@@ -29,3 +29,18 @@ export const onPostCreated = functions.firestore
       console.log(error);
     }
   });
+
+export const onPostDeleted = functions.firestore
+  .document("posts/{postId}")
+  .onDelete(async (snapshot, context) => {
+    const db = admin.firestore();
+    const post = snapshot.data();
+    const postId = context.params.postId;
+
+    await db
+      .collection("users")
+      .doc(post.creatorUid)
+      .collection("posts")
+      .doc(postId)
+      .delete();
+  });

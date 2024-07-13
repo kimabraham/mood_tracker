@@ -37,9 +37,57 @@ class PostVm extends AsyncNotifier<List<PostModel>> {
     return posts.toList();
   }
 
+  Future<void> searchPost(String term) async {
+    if (term == '') {
+      _list = await _fetchPosts(lastItemCreatedAt: null);
+      state = AsyncValue.data([..._list]);
+    } else {
+      final result = await _postRepo.searchPost(_authRepo.user!.uid, term);
+      final posts = result.docs.map(
+        (doc) => PostModel.fromJson(
+          json: doc.data(),
+          postId: doc.id,
+          uid: _authRepo.user!.uid,
+        ),
+      );
+
+      _list = posts.toList();
+      state = AsyncValue.data([..._list]);
+    }
+  }
+
   Future<void> addPost(PostModel newPost) async {
     _list.insert(0, newPost);
     state = AsyncValue.data([..._list]);
+  }
+
+  Future<void> removePost(String postId) async {
+    await _postRepo.removePost(postId);
+    final newList = _list.where((post) => post.id != postId).toList();
+    _list = newList;
+
+    if (_list.isNotEmpty) {
+      await fetchOneMore(_authRepo.user!.uid);
+    }
+
+    state = AsyncValue.data([...newList]);
+  }
+
+  Future<void> fetchOneMore(String uid) async {
+    final result = await _postRepo.fetchOneMore(
+        lastItemCreatedAt: _list.last.createdAt, uid: uid);
+
+    final post = result.docs
+        .map(
+          (doc) => PostModel.fromJson(
+            json: doc.data(),
+            postId: doc.id,
+            uid: _authRepo.user!.uid,
+          ),
+        )
+        .toList();
+
+    state = AsyncValue.data([..._list, ...post]);
   }
 
   Future<void> fetchNextPage() async {

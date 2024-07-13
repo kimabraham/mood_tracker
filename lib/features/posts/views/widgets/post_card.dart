@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mood_tracker/constants/gaps.dart';
@@ -7,9 +8,10 @@ import 'package:mood_tracker/constants/mood_colors.dart';
 import 'package:mood_tracker/constants/mood_icons.dart';
 import 'package:mood_tracker/constants/sizes.dart';
 import 'package:mood_tracker/features/posts/models/post_model.dart';
+import 'package:mood_tracker/features/posts/view_models/post_vm.dart';
 import 'package:mood_tracker/utils.dart';
 
-class PostCard extends StatelessWidget {
+class PostCard extends ConsumerWidget {
   final PostModel post;
 
   const PostCard({
@@ -18,7 +20,7 @@ class PostCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onLongPress: () {
         showCupertinoModalPopup(
@@ -36,7 +38,7 @@ class PostCard extends StatelessWidget {
               CupertinoActionSheetAction(
                 isDestructiveAction: true,
                 onPressed: () {
-                  print('todo delete post ${post.id}');
+                  ref.read(postProvider.notifier).removePost(post.id);
                   context.pop();
                 },
                 child: const Text('Yes'),

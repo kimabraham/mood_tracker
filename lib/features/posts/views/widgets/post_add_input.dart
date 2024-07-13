@@ -29,8 +29,7 @@ class PostAddInput extends ConsumerStatefulWidget {
 class _PostAddInputState extends ConsumerState<PostAddInput> {
   @override
   Widget build(BuildContext context) {
-    final hasError = widget.validator != null &&
-        widget.validator!(widget.controller.text) != null;
+    final currentEmotion = ref.read(postFormProvider).emotion;
 
     return TextFormField(
       controller: widget.controller,
@@ -39,7 +38,7 @@ class _PostAddInputState extends ConsumerState<PostAddInput> {
       onChanged: widget.onChanged,
       validator: widget.validator,
       style: TextStyle(
-        color: MoodColors.darkPrimaryColors[ref.read(postFormProvider).emotion],
+        color: MoodColors.darkPrimaryColors[currentEmotion],
         fontSize: Sizes.size14,
       ),
       decoration: InputDecoration(
@@ -50,36 +49,30 @@ class _PostAddInputState extends ConsumerState<PostAddInput> {
         counterText: '',
         hintText: widget.hintText,
         hintStyle: TextStyle(
-            fontSize: Sizes.size14,
-            color: hasError
-                ? Colors.red
-                : MoodColors
-                    .darkPrimaryColors[ref.read(postFormProvider).emotion]),
+          fontSize: Sizes.size14,
+          color: MoodColors.darkPrimaryColors[currentEmotion],
+        ),
         border: OutlineInputBorder(
           borderSide: BorderSide(
             width: Sizes.size2,
             style: BorderStyle.solid,
-            color: MoodColors
-                    .opacityPrimaryColors[ref.read(postFormProvider).emotion] ??
-                Colors.grey,
+            color:
+                MoodColors.opacityPrimaryColors[currentEmotion] ?? Colors.grey,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: Sizes.size2,
             style: BorderStyle.solid,
-            color: MoodColors
-                    .opacityPrimaryColors[ref.read(postFormProvider).emotion] ??
-                Colors.grey,
+            color:
+                MoodColors.opacityPrimaryColors[currentEmotion] ?? Colors.grey,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: Sizes.size2,
             style: BorderStyle.solid,
-            color:
-                MoodColors.primaryColors[ref.read(postFormProvider).emotion] ??
-                    Colors.grey,
+            color: MoodColors.primaryColors[currentEmotion] ?? Colors.grey,
           ),
         ),
         errorBorder: const OutlineInputBorder(
@@ -93,9 +86,7 @@ class _PostAddInputState extends ConsumerState<PostAddInput> {
           borderSide: BorderSide(
             width: Sizes.size2,
             style: BorderStyle.solid,
-            color:
-                MoodColors.primaryColors[ref.read(postFormProvider).emotion] ??
-                    Colors.grey,
+            color: MoodColors.primaryColors[currentEmotion] ?? Colors.grey,
           ),
         ),
         errorStyle: const TextStyle(

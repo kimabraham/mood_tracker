@@ -41,7 +41,9 @@ class _PostsListScreenState extends ConsumerState<PostsListScreen> {
                 vertical: Sizes.size20,
               ),
               child: CupertinoSearchTextField(
-                onChanged: (value) {},
+                onChanged: (value) {
+                  ref.read(postProvider.notifier).searchPost(value);
+                },
               ),
             ),
             postsAsyncValue.when(

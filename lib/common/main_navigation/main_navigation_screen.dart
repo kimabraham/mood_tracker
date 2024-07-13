@@ -30,22 +30,20 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
     final onTap = ref.read(navigationProvider.notifier).setIndex;
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Offstage(
-            offstage: selectedIndex != 0,
-            child: const PostsListScreen(),
-          ),
-          Offstage(
-            offstage: selectedIndex != 1,
-            child: const PostAddScreen(),
-          ),
-          Offstage(
-            offstage: selectedIndex != 2,
-            child: const ProfileScreen(),
-          ),
-        ],
-      ),
+      body: selectedIndex == 1
+          ? const PostAddScreen()
+          : Stack(
+              children: [
+                Offstage(
+                  offstage: selectedIndex != 0,
+                  child: const PostsListScreen(),
+                ),
+                Offstage(
+                  offstage: selectedIndex != 2,
+                  child: const ProfileScreen(),
+                ),
+              ],
+            ),
       bottomNavigationBar: BottomAppBar(
         padding: EdgeInsets.zero,
         notchMargin: 5,

@@ -33,6 +33,10 @@ class PostRepo {
     await _db.collection('posts').doc(postId).update(data);
   }
 
+  Future<void> removePost(String postId) async {
+    await _db.collection('posts').doc(postId).delete();
+  }
+
   Future<QuerySnapshot<Map<String, dynamic>>> fetchPosts(
       {int? lastItemCreatedAt, required String uid}) async {
     final query = _db
@@ -40,13 +44,36 @@ class PostRepo {
         .doc(uid)
         .collection('posts')
         .orderBy('createdAt', descending: true)
-        .limit(4);
+        .limit(5);
 
     if (lastItemCreatedAt == null) {
       return query.get();
     } else {
       return query.startAfter([lastItemCreatedAt]).get();
     }
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchOneMore(
+      {int? lastItemCreatedAt, required String uid}) async {
+    return _db
+        .collection('users')
+        .doc(uid)
+        .collection('posts')
+        .orderBy('createdAt', descending: true)
+        .limit(1)
+        .startAfter([lastItemCreatedAt]).get();
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> searchPost(uid, term) async {
+    return _db
+        .collection('users')
+        .doc(uid)
+        .collection('posts')
+        .where('title', isGreaterThanOrEqualTo: term)
+        .where('title', isLessThanOrEqualTo: term + '\uf8ff')
+        .orderBy('title')
+        .orderBy('createdAt', descending: true)
+        .get();
   }
 }
 
